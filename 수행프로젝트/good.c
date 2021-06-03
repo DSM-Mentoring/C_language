@@ -7,16 +7,31 @@ typedef struct _address {
 	long long phone;
 } Address;
 
-void add(Address address) {
-	char name[20];
-	char note[50];
-	long long phone;
+// 3
+void add(Address *address) {
 	printf("이름을 입력하시오. : ");
-	scanf("%s", address.name);
+	scanf("%s", address->name);
 	printf("메모를 작성하시오. : ");
-	scanf("%s", address.note);
+	scanf("%s", address->note);
 	printf("전화번호를 입력하시오. : ");
-	scanf("%lld", &address.phone);
+	scanf("%lld", &address->phone);
+}
+
+// 4
+void drop(int count, Address address[]) {
+	list(count, address);
+}
+
+
+// 5
+void list(int count, Address address[]) {
+	for (int i = 0; i < count; i++) {
+		printf("- - - - - - - - - - - - - - \n");
+		printf("%d 번째 목록\n", i+1);
+		printf("이름 : %s\n", address[i].name);
+		printf("메모 : %s\n", address[i].note);
+		printf("전화번호 : %lld\n", address[i].phone);
+	}
 }
 
 int main() {
@@ -39,13 +54,15 @@ int main() {
 				break;
 			case 3:
 				printf("\n전화번호를 등록하시오.\n\n");
-				add(address[count++]);
+				add(&address[count++]);
 				break;
 			case 4:
 				printf("\n전화번호를 삭제하시오\n\n");
+				drop(count, address);
 				break;
 			case 5:
 				printf("\n전화번호 목록을 확인하시오.\n\n");
+				list(count, address);
 				break;
 			default:
 				printf("\n잘못 입력하셨습니다. \n\n");
